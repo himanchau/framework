@@ -155,7 +155,7 @@
 	</section>
 
 	<!-- Footer Test Screen -->
-	<section id="footerScreen" class="current">
+	<section id="footerScreen">
 		<header>
 			<li class="btn pull-left" data-target="aside"><i class="icon-menu"></i></li>
 			<h1>Footer</h1>
@@ -172,7 +172,7 @@
 		</header>
 
 		<footer>
-			<ul class="with-text">
+			<ul class="with-icons">
 				<li data-target="article1" data-header="Favorites" class="active"><i class="icon-star"></i>Favorites</li>
 				<li data-target="article2" data-header="Recent"><i class="icon-clock"></i>Recent</li>
 				<li data-target="article3" data-header="Contacts"><i class="icon-user"></i>Contacts</li>
@@ -241,16 +241,16 @@
 			</ul>
 		</article>
 
-		<article id="article2" class="indented has-footer secondary-header">
+		<article id="article2" class="indented has-footer">
 			Article 2
 		</article>
 
-		<article id="article3" class="indented has-footer secondary-header">
+		<article id="article3" class="indented has-footer">
 			Article 3
 		</article>
 		
-		<article id="article4" class="indented has-footer secondary-header">
-			<ul class="rounded form">
+		<article id="article4" class="indented has-footer">
+			<ul class="rounded">
 				<li>
 					<label>Name</label><input type="text" placeholder="John Appleseed"/>
 				</li>
@@ -281,6 +281,10 @@
 <script type="text/javascript">
 	/* Start App */
 	app.start();
+
+	/* Show and hide menu */
+	//setTimeout(app.showAside, 500);
+	//setTimeout(app.hideAside, 1000);
 
 	/* Loading Spinner */
 	hammer.on('tap', '#showLoader', app.showLoader);
@@ -357,7 +361,7 @@
 	hammer.on('tap', '#plainN', function() {
 		/* Show First Notification */
 		app.showNotification({
-			style: 'light',
+			'style': 'light',
 			icon: 'icon-link',
 			title: 'Chain Notifications',
 			message: 'Would you like to see some notifications chained one after another?',
@@ -381,7 +385,7 @@
 											style: 'error',
 											title: 'Last Chain',
 											message: 'This is the last chain notification.',
-											time: '2500'
+											time: '1500'
 										});
 									}, 301);
 								},
@@ -402,10 +406,11 @@
 	});
 	hammer.on('tap', '#alertN', function() {
 		app.showNotification({
-			style: 'alert',
 			icon: 'icon-location',
+			style: 'alert',
 			title: 'Warning!',
 			message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi in dolor est.',
+			time: '0',
 			buttons: {
 				first: 'Yes',
 				firstCallback: function() {
@@ -420,10 +425,11 @@
 	});
 	hammer.on('tap', '#errorN', function() {
 		app.showNotification({
-			style: 'error',
 			icon: 'icon-trash',
+			style: 'error',
 			title: 'Oh Snap!',
 			message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi in dolor est.',
+			time: 'stay',
 			buttons: {
 				first: 'Delete',
 				firstCallback: function() {
@@ -441,6 +447,7 @@
 			icon: 'icon-trash',
 			title: 'Oh Snap!',
 			message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi in dolor est.',
+			time: 'stay',
 			buttons: {
 				first: 'Delete',
 				firstCallback: function() {

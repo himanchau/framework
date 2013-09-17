@@ -71,6 +71,7 @@ var app = (function() {
 			
 			/* Show Buttons */
 			if (data.buttons) {
+				nB.ontap = function() {}
 				nB.querySelector('.buttons').classList.add('show');
 				nB.querySelector('.buttons .first').innerHTML = data.buttons.first;
 				nB.querySelector('.buttons .first').ontap = function() {
