@@ -172,7 +172,7 @@
 		</header>
 
 		<footer>
-			<ul class="with-icons">
+			<ul class="with-text">
 				<li data-target="article1" data-header="Favorites" class="active"><i class="icon-star"></i>Favorites</li>
 				<li data-target="article2" data-header="Recent"><i class="icon-clock"></i>Recent</li>
 				<li data-target="article3" data-header="Contacts"><i class="icon-user"></i>Contacts</li>
@@ -241,15 +241,15 @@
 			</ul>
 		</article>
 
-		<article id="article2" class="indented has-footer">
+		<article id="article2" class="indented has-footer secondary-header">
 			Article 2
 		</article>
 
-		<article id="article3" class="indented has-footer">
+		<article id="article3" class="indented has-footer secondary-header">
 			Article 3
 		</article>
 		
-		<article id="article4" class="indented has-footer">
+		<article id="article4" class="indented has-footer secondary-header">
 			<ul class="rounded">
 				<li>
 					<label>Name</label><input type="text" placeholder="John Appleseed"/>
@@ -274,220 +274,220 @@
 </body>
 
 <!-- Lazy Load JS & CSS -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-<script src="js/app.js" type="text/javascript"></script>
 <script src="js/lazyload.js" type="text/javascript"></script>
-<script src="js/jquery.hammer.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-	/* Start App */
-	app.start();
 
-	/* Show and hide menu */
-	//setTimeout(app.showAside, 500);
-	//setTimeout(app.hideAside, 1000);
+	LazyLoad.js(['http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js', 'js/app.js', 'js/jquery.hammer.min.js'], function() {
+		// All JS has been loaded, start app
+		app.start();
 
-	/* Loading Spinner */
-	hammer.on('tap', '#showLoader', app.showLoader);
-	hammer.on('tap', '#hideLoader', app.hideLoader);
+		/* Show and hide menu */
+		setTimeout(app.showAside, 500);
+		setTimeout(app.hideAside, 1000);
 
-	/* Screen Animations */
-	hammer.on('tap', '#animationScreen article ul li', function() {
-		var anim = $(this).attr('data-anim');
-		switch(anim) {
-			case 'slide-left':
-				anim = 'slide-right';
-				break;
-			case 'slide-right':
-				anim = 'slide-left';
-				break;
-			case 'slide-up':
-				anim = 'slide-down';
-				break;
-			case 'slide-down':
-				anim = 'slide-up';
-				break;
+		/* Loading Spinner */
+		hammer.on('tap', '#showLoader', app.showLoader);
+		hammer.on('tap', '#hideLoader', app.hideLoader);
 
-			case 'cover-left':
-				anim = 'reveal-right';
-				break;
-			case 'cover-right':
-				anim = 'reveal-left';
-				break;
-			case 'cover-up':
-				anim = 'reveal-down';
-				break;
-			case 'cover-down':
-				anim = 'reveal-up';
-				break;
+		/* Screen Animations */
+		hammer.on('tap', '#animationScreen article ul li', function() {
+			var anim = $(this).attr('data-anim');
+			switch(anim) {
+				case 'slide-left':
+					anim = 'slide-right';
+					break;
+				case 'slide-right':
+					anim = 'slide-left';
+					break;
+				case 'slide-up':
+					anim = 'slide-down';
+					break;
+				case 'slide-down':
+					anim = 'slide-up';
+					break;
 
-			case 'reveal-left':
-				anim = 'cover-right';
-				break;
-			case 'reveal-right':
-				anim = 'cover-left';
-				break;	
-			case 'reveal-up':
-				anim = 'cover-down';
-				break;
-			case 'reveal-down':
-				anim = 'cover-up';
-				break;
+				case 'cover-left':
+					anim = 'reveal-right';
+					break;
+				case 'cover-right':
+					anim = 'reveal-left';
+					break;
+				case 'cover-up':
+					anim = 'reveal-down';
+					break;
+				case 'cover-down':
+					anim = 'reveal-up';
+					break;
 
-			case 'pop-in':
-				anim = 'pop-out';
-				break;
-			case 'pop-out':
-				anim = 'pop-in';
-				break;
+				case 'reveal-left':
+					anim = 'cover-right';
+					break;
+				case 'reveal-right':
+					anim = 'cover-left';
+					break;	
+				case 'reveal-up':
+					anim = 'cover-down';
+					break;
+				case 'reveal-down':
+					anim = 'cover-up';
+					break;
 
-			case 'flip-left':
-				anim = 'flip-right';
-				break;
-			case 'flip-right':
-				anim = 'flip-left';
-				break;
+				case 'pop-in':
+					anim = 'pop-out';
+					break;
+				case 'pop-out':
+					anim = 'pop-in';
+					break;
 
-			case 'cube-left':
-				anim = 'cube-right';
-				break;
-			case 'cube-right':
-				anim = 'cube-left';
-				break;
-		}
-		$("#backButton").attr('data-anim', anim);
-	});
+				case 'flip-left':
+					anim = 'flip-right';
+					break;
+				case 'flip-right':
+					anim = 'flip-left';
+					break;
 
-	/* Notifications */
-	hammer.on('tap', '#plainN', function() {
-		/* Show First Notification */
-		app.showNotification({
-			'style': 'light',
-			icon: 'icon-link',
-			title: 'Chain Notifications',
-			message: 'Would you like to see some notifications chained one after another?',
-			buttons: {
-				first: 'Yes',
-				firstCallback: function() {
-					/* Show Second Notification */
-					setTimeout(function() {
-						app.showNotification({
-							icon: 'icon-user',
-							style: 'light',
-							title: '2nd Chain',
-							message: 'Up for another notification?.',
-							buttons: {
-								first: 'Yes',
-								firstCallback: function() {
-									/* Show Third Notification */
-									setTimeout(function() {
-										app.showNotification({
-											icon: 'icon-user',
-											style: 'error',
-											title: 'Last Chain',
-											message: 'This is the last chain notification.',
-											time: '1500'
-										});
-									}, 301);
-								},
-								second: 'No',
-								secondCallback: function() {
+				case 'cube-left':
+					anim = 'cube-right';
+					break;
+				case 'cube-right':
+					anim = 'cube-left';
+					break;
+			}
+			$("#backButton").attr('data-anim', anim);
+		});
 
+		/* Notifications */
+		hammer.on('tap', '#plainN', function() {
+			/* Show First Notification */
+			app.showNotification({
+				style: 'light',
+				icon: 'icon-link',
+				title: 'Chain Notifications',
+				message: 'Would you like to see some notifications chained one after another?',
+				buttons: {
+					first: 'Yes',
+					firstCallback: function() {
+						/* Show Second Notification */
+						setTimeout(function() {
+							app.showNotification({
+								icon: 'icon-user',
+								style: 'light',
+								title: '2nd Chain',
+								message: 'Up for another notification?.',
+								buttons: {
+									first: 'Yes',
+									firstCallback: function() {
+										/* Show Third Notification */
+										setTimeout(function() {
+											app.showNotification({
+												icon: 'icon-user',
+												style: 'error',
+												title: 'Last Chain',
+												message: 'This is the last chain notification.',
+												time: '1500'
+											});
+										}, 301);
+									},
+									second: 'No',
+									secondCallback: function() {
+
+									}
 								}
-							}
-						});
-					}, 301);
-				},
-				second: 'No',
-				secondCallback: function() {
-					console.log('Canceled');
+							});
+						}, 301);
+					},
+					second: 'No',
+					secondCallback: function() {
+						console.log('Canceled');
+					}
 				}
-			}
+			});
 		});
-	});
-	hammer.on('tap', '#alertN', function() {
-		app.showNotification({
-			icon: 'icon-location',
-			style: 'alert',
-			title: 'Warning!',
-			message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi in dolor est.',
-			time: '0',
-			buttons: {
-				first: 'Yes',
-				firstCallback: function() {
-					console.log('First Click');
-				},
-				second: 'No',
-				secondCallback: function() {
-					console.log('Second Click');
+		hammer.on('tap', '#alertN', function() {
+			app.showNotification({
+				icon: 'icon-location',
+				style: 'alert',
+				title: 'Warning!',
+				message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi in dolor est.',
+				time: '0',
+				buttons: {
+					first: 'Yes',
+					firstCallback: function() {
+						console.log('First Click');
+					},
+					second: 'No',
+					secondCallback: function() {
+						console.log('Second Click');
+					}
 				}
-			}
+			});
 		});
-	});
-	hammer.on('tap', '#errorN', function() {
-		app.showNotification({
-			icon: 'icon-trash',
-			style: 'error',
-			title: 'Oh Snap!',
-			message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi in dolor est.',
-			time: 'stay',
-			buttons: {
-				first: 'Delete',
-				firstCallback: function() {
-					console.log('First Click');
-				},
-				second: 'Cancel',
-				secondCallback: function() {
-					console.log('Second Click');
+		hammer.on('tap', '#errorN', function() {
+			app.showNotification({
+				icon: 'icon-trash',
+				style: 'error',
+				title: 'Oh Snap!',
+				message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi in dolor est.',
+				time: 'stay',
+				buttons: {
+					first: 'Delete',
+					firstCallback: function() {
+						console.log('First Click');
+					},
+					second: 'Cancel',
+					secondCallback: function() {
+						console.log('Second Click');
+					}
 				}
-			}
+			});
 		});
-	});
-	hammer.on('tap', '#darkN', function() {
-		app.showNotification({
-			icon: 'icon-trash',
-			title: 'Oh Snap!',
-			message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi in dolor est.',
-			time: 'stay',
-			buttons: {
-				first: 'Delete',
-				firstCallback: function() {
-					console.log('First Click');
-				},
-				second: 'Cancel',
-				secondCallback: function() {
-					console.log('Second Click');
+		hammer.on('tap', '#darkN', function() {
+			app.showNotification({
+				icon: 'icon-trash',
+				title: 'Oh Snap!',
+				message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi in dolor est.',
+				time: 'stay',
+				buttons: {
+					first: 'Delete',
+					firstCallback: function() {
+						console.log('First Click');
+					},
+					second: 'Cancel',
+					secondCallback: function() {
+						console.log('Second Click');
+					}
 				}
-			}
+			});
 		});
-	});
-	hammer.on('tap', '#successN', function() {
-		app.showNotification({
-			icon: 'icon-flight',
-			style: 'success',
-			title: 'Well Done!',
-			message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi in dolor est.',
+		hammer.on('tap', '#successN', function() {
+			app.showNotification({
+				icon: 'icon-flight',
+				style: 'success',
+				title: 'Well Done!',
+				message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi in dolor est.',
+			});
 		});
-	});
-	hammer.on('tap', '#infoN', function() {
-		app.showNotification({
-			icon: 'icon-twitter',
-			style: 'info',
-			title: 'Heads Up!',
-			message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi in dolor est.',
-			time: '0'
+		hammer.on('tap', '#infoN', function() {
+			app.showNotification({
+				icon: 'icon-twitter',
+				style: 'info',
+				title: 'Heads Up!',
+				message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi in dolor est.',
+				time: '0'
+			});
 		});
-	});
-	hammer.on('tap', '#indentedT', function() {
-		$('#article1').toggleClass('indented rounded');
-	});
-	hammer.on('tap', '#chevronL', function() {
-		$('#article1 ul:not(.group)').removeClass().addClass('chevron');
-	});
-	hammer.on('tap', '#selectableL', function() {
-		$('#article1 ul:not(.group)').removeClass().addClass('selectable chevron');
-	});
-	hammer.on('tap', '#simpleL', function() {
-		$('#article1 ul:not(.group)').removeClass();
+		hammer.on('tap', '#indentedT', function() {
+			$('#article1').toggleClass('indented rounded');
+		});
+		hammer.on('tap', '#chevronL', function() {
+			$('#article1 ul:not(.group)').removeClass().addClass('chevron');
+		});
+		hammer.on('tap', '#selectableL', function() {
+			$('#article1 ul:not(.group)').removeClass().addClass('selectable chevron');
+		});
+		hammer.on('tap', '#simpleL', function() {
+			$('#article1 ul:not(.group)').removeClass();
+		});
 	});
 </script>
 </html>

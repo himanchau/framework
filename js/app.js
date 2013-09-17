@@ -9,17 +9,17 @@ var app = (function() {
 			hammer = $(document.body).hammer();
 
 			/* Aside Menu Tap */
-			hammer.on('tap', 'aside li[data-target]', function(e) {
+			hammer.on('tap', 'aside li[data-target]', function() {
 				app.hideAside();
-				app.section(e.currentTarget.getAttribute('data-target'), 'aside');
+				app.section(this.getAttribute('data-target'), 'aside');
 			});
 
 			/* Link Tap */
-			hammer.on('tap', 'section li[data-target]', function(e) {
+			hammer.on('tap', 'section li[data-target]', function() {
 				/* t:target, a:animation, h:header */
-				var t = e.currentTarget.getAttribute('data-target');
-				var a = e.currentTarget.getAttribute('data-anim');
-				var h = e.currentTarget.getAttribute('data-header');
+				var t = this.getAttribute('data-target');
+				var a = this.getAttribute('data-anim');
+				var h = this.getAttribute('data-header');
 				
 				if (t === 'aside') { app.toggleAside(); }
 				else if (!a) { app.article(t, h); }
@@ -27,9 +27,9 @@ var app = (function() {
 			});
 
 			/* Group List Tap */
-			hammer.on('tap', 'ul.group li', function(e) {
-				e.currentTarget.parentNode.querySelector('li.active').classList.remove('active');
-				e.currentTarget.classList.add('active');
+			hammer.on('tap', 'ul.group li', function() {
+				this.parentNode.querySelector('li.active').classList.remove('active');
+				this.classList.add('active');
 			});
 
 			console.log('App Initialized Successfully!');
@@ -47,45 +47,44 @@ var app = (function() {
 
 		/* Show Notification (Parameters: time, style, icon, title, message, buttons) */
 		showNotification: function(data) {
-			var nW = document.getElementById('notificationWrapper');
-			var nB = document.getElementById('notificationBody');
+			var nw = document.getElementById('notificationWrapper');
+			var nb = document.getElementById('notificationBody');
 
 			/* Show Notification */
-			nW.className = 'show';
-			nB.className = 'show';
+			nw.className = 'show';
+			nb.className = 'show';
 
 			/* Set time to 1.5 sec if not provided */
 			if (!data.time) { data.time = 1500; }
 			
 			/* Set Style (alert, error, success, info) */
-			nB.classList.add(data.style);
+			nb.classList.add(data.style);
 
 			/* Set Icon */
-			if (data.icon) { nB.querySelector('i').className = data.icon + ' show'; }
+			if (data.icon) { nb.querySelector('i').className = data.icon + ' show'; }
 
 			/* Set Title */
-			nB.querySelector('.title').innerHTML = data.title;
+			nb.querySelector('.title').innerHTML = data.title;
 
 			/* Set Message */
-			nB.querySelector('.message').innerHTML = data.message;
+			nb.querySelector('.message').innerHTML = data.message;
 			
 			/* Show Buttons */
 			if (data.buttons) {
-				nB.ontap = function() {}
-				nB.querySelector('.buttons').classList.add('show');
-				nB.querySelector('.buttons .first').innerHTML = data.buttons.first;
-				nB.querySelector('.buttons .first').ontap = function() {
+				nb.querySelector('.buttons').classList.add('show');
+				nb.querySelector('.buttons .first').innerHTML = data.buttons.first;
+				nb.querySelector('.buttons .first').ontap = function() {
 					data.buttons.firstCallback();
 					app.hideNotification();
 				};
-				nB.querySelector('.buttons .second').ontap = function() {
+				nb.querySelector('.buttons .second').ontap = function() {
 					data.buttons.secondCallback();
 					app.hideNotification();
 				};
 			}
 			else {
 				/* Hide Notification On Tap */
-				nB.ontap = function() { app.hideNotification(); };
+				nb.ontap = function() { app.hideNotification(); };
 				/* Hide Notification After Given Time */
 				if (data.time !== '0') { notificationId = setTimeout(function() { app.hideNotification(); }, data.time); }
 			}
@@ -93,45 +92,45 @@ var app = (function() {
 
 		/* Hide Notification */
 		hideNotification: function() {
-			var nW = document.getElementById('notificationWrapper');
-			var nB = document.getElementById('notificationBody');
+			var nw = document.getElementById('notificationWrapper');
+			var nb = document.getElementById('notificationBody');
 
 			/* Clear Timeout if there is one */
 			clearTimeout(notificationId);
 
 			/* Hide Notification Body, Icon, Buttons & Wrapper */
-			nB.classList.add('hide');
+			nb.classList.add('hide');
 			setTimeout(function() { 
-				nW.classList.remove('show');
-				nB.querySelector('.buttons').classList.remove('show');
-				nB.querySelector('i').classList.remove('show'); 
+				nw.classList.remove('show');
+				nb.querySelector('.buttons').classList.remove('show');
+				nb.querySelector('i').classList.remove('show'); 
 			}, 300);
 		},
 
 		/* Navigate To Section (s:section, a:animation) */
 		section: function(s, a) {
-			/* cS: current section, tS: target section */ 
-			var cS = document.querySelector('section.current');
-			var tS = document.getElementById(s);
+			/* cs: current section, ts: target section */ 
+			var cs = document.querySelector('section.current');
+			var ts = document.getElementById(s);
 
 			/* Update Classes */
 			function updateSection() {
 				/* Check if Target and Current same */
-				if (cS !== tS) {			
-					tS.className = a + ' in current';
-					cS.className = a + ' out current';
+				if (cs !== ts) {			
+					ts.className = a + ' in current';
+					cs.className = a + ' out current';
 
 					/* Remove Animation Classes Once Done */
-					tS.addEventListener('webkitAnimationEnd', function() {
-						tS.classList.remove(a);
-						tS.classList.remove('in');
-						tS.removeEventListener('webkitAnimationEnd', arguments.callee, false);
+					ts.addEventListener('webkitAnimationEnd', function() {
+						ts.classList.remove(a);
+						ts.classList.remove('in');
+						ts.removeEventListener('webkitAnimationEnd', arguments.callee, false);
 					});
-					cS.addEventListener('webkitAnimationEnd', function() {
-						cS.classList.remove(a);
-						cS.classList.remove('out');
-						cS.classList.remove('current');
-						cS.removeEventListener('webkitAnimationEnd', arguments.callee, false);
+					cs.addEventListener('webkitAnimationEnd', function() {
+						cs.classList.remove(a);
+						cs.classList.remove('out');
+						cs.classList.remove('current');
+						cs.removeEventListener('webkitAnimationEnd', arguments.callee, false);
 					});
 				}
 
@@ -141,7 +140,7 @@ var app = (function() {
 			}
 			
 			/* Check If Aside Is Open */
-			if (cS.classList.contains('show-menu')) {
+			if (cs.classList.contains('show-menu')) {
 				/* Go To Section After Aside Closed */
 				app.hideAside();
 				setTimeout(function() { updateSection(); }, 150);
@@ -153,14 +152,14 @@ var app = (function() {
 
 		/* Navigate To Article (a: article, h:h1 title) */
 		article: function(a, h) {
-			var cS = document.querySelector('section.current');
+			var cs = document.querySelector('section.current');
 			setTimeout(function() { document.getElementById(a).classList.add('current'); }, 0);
-			if (h) { cS.querySelector('header h1').innerHTML = h; }
-			if (ac = cS.querySelector('article.current')) { ac.classList.remove('current'); }
-			if (fc = cS.querySelector('footer li.active')) { fc.classList.remove('active') };
-			if (ft = cS.querySelector('footer li[data-target="' + a + '"]')) { ft.classList.add('active'); }
-			if (hc = cS.querySelector('header ul.group li.active')) { hc.classList.remove('active'); }
-			if (ht = cS.querySelector('header ul.group li[data-target="' + a + '"]')) { ht.classList.add('active'); }
+			if (h) { cs.querySelector('header h1').innerHTML = h; }
+			if (ac = cs.querySelector('article.current')) { ac.classList.remove('current'); }
+			if (fc = cs.querySelector('footer li.active')) { fc.classList.remove('active') };
+			if (ft = cs.querySelector('footer li[data-target="' + a + '"]')) { ft.classList.add('active'); }
+			if (hc = cs.querySelector('header ul.group li.active')) { hc.classList.remove('active'); }
+			if (ht = cs.querySelector('header ul.group li[data-target="' + a + '"]')) { ht.classList.add('active'); }
 		},
 
 		/* Show Aside Menu */
