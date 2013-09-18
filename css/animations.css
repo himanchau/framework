@@ -1,8 +1,8 @@
-.in {z-index: 100;}
-
 /* Aside Menu Show */
 section.show-menu { border-left: 1px solid rgba(0, 0, 0, .8); box-shadow: -5px 0 10px -5px rgba(0, 0, 0, .8); -webkit-animation: showMenu .4s ease forwards; }
 section.hide-menu { -webkit-animation: hideMenu .4s ease forwards; }
+
+.in {z-index: 100;}
 
 /* Aside Section Change */
 .aside.in  { -webkit-animation: asideIn .4s ease; }
@@ -59,11 +59,11 @@ section.hide-menu { -webkit-animation: hideMenu .4s ease forwards; }
 .fade.out { -webkit-animation: noAnim .4s ease; }
 
 /* Flip Animations */
-.flip-left.in  { -webkit-animation: flipLeftIn .5s ease; }
-.flip-left.out { -webkit-animation: flipLeftOut .5s ease; }
+.flip-left.in  { -webkit-animation: flipLeftIn .5s linear; }
+.flip-left.out { -webkit-animation: flipLeftOut .5s linear; }
 
-.flip-right.in  { -webkit-animation: flipRightIn .5s ease; }
-.flip-right.out { -webkit-animation: flipRightOut .5s ease; }
+.flip-right.in  { -webkit-animation: flipRightIn .5s linear; }
+.flip-right.out { -webkit-animation: flipRightOut .5s linear; }
 
 /* Cube Animations */
 .cube-left.in  { -webkit-animation: cubeLeftIn .5s ease; }

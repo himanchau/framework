@@ -5,7 +5,7 @@
 	<meta name="format-detection" content="telephone=no" />
 	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<title>Framework 1.5</title>
+	<title>Framework</title>
 
 	<!-- App Style Sheet -->
 	<link rel="stylesheet" href="css/app.css" type="text/css">
@@ -282,78 +282,38 @@
 		app.start();
 
 		/* Show and hide menu */
-		setTimeout(app.showAside, 500);
-		setTimeout(app.hideAside, 1000);
+		//setTimeout(app.showAside, 500);
+		//setTimeout(app.hideAside, 1000);
 
 		/* Loading Spinner */
 		hammer.on('tap', '#showLoader', app.showLoader);
 		hammer.on('tap', '#hideLoader', app.hideLoader);
 
+		var anims = {
+			'slide-left'	: 'slide-right',
+			'slide-right'	: 'slide-left',
+			'slide-up'		: 'slide-down',
+			'slide-down'	: 'slide-up',
+			'cover-left'	: 'reveal-right',
+			'cover-right'	: 'reveal-left',
+			'cover-up'		: 'reveal-down',
+			'cover-down'	: 'reveal-up',
+			'reveal-left'	: 'cover-right',
+			'reveal-right'	: 'cover-left',
+			'reveal-up'		: 'cover-down',
+			'reveal-down'	: 'cover-left',
+			'pop-in'		: 'pop-out',
+			'pop-out'		: 'pop-in',
+			'flip-left'		: 'flip-right',
+			'flip-right'	: 'flip-left',
+			'cube-left'		: 'cube-right',
+			'cube-right'	: 'cube-left',
+			'fade'			: 'fade'
+		}
+
 		/* Screen Animations */
 		hammer.on('tap', '#animationScreen article ul li', function() {
-			var anim = $(this).attr('data-anim');
-			switch(anim) {
-				case 'slide-left':
-					anim = 'slide-right';
-					break;
-				case 'slide-right':
-					anim = 'slide-left';
-					break;
-				case 'slide-up':
-					anim = 'slide-down';
-					break;
-				case 'slide-down':
-					anim = 'slide-up';
-					break;
-
-				case 'cover-left':
-					anim = 'reveal-right';
-					break;
-				case 'cover-right':
-					anim = 'reveal-left';
-					break;
-				case 'cover-up':
-					anim = 'reveal-down';
-					break;
-				case 'cover-down':
-					anim = 'reveal-up';
-					break;
-
-				case 'reveal-left':
-					anim = 'cover-right';
-					break;
-				case 'reveal-right':
-					anim = 'cover-left';
-					break;	
-				case 'reveal-up':
-					anim = 'cover-down';
-					break;
-				case 'reveal-down':
-					anim = 'cover-up';
-					break;
-
-				case 'pop-in':
-					anim = 'pop-out';
-					break;
-				case 'pop-out':
-					anim = 'pop-in';
-					break;
-
-				case 'flip-left':
-					anim = 'flip-right';
-					break;
-				case 'flip-right':
-					anim = 'flip-left';
-					break;
-
-				case 'cube-left':
-					anim = 'cube-right';
-					break;
-				case 'cube-right':
-					anim = 'cube-left';
-					break;
-			}
-			$("#backButton").attr('data-anim', anim);
+			$("#backButton").attr('data-anim', anims[$(this).attr('data-anim')]);
 		});
 
 		/* Notifications */
@@ -375,7 +335,7 @@
 								title: '2nd Chain',
 								message: 'Up for another notification?.',
 								buttons: {
-									first: 'Yes',
+									first: 'Yes Sir',
 									firstCallback: function() {
 										/* Show Third Notification */
 										setTimeout(function() {
@@ -388,7 +348,7 @@
 											});
 										}, 301);
 									},
-									second: 'No',
+									second: 'No Sir',
 									secondCallback: function() {
 
 									}
